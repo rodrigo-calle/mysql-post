@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>MySQL</h1>
+    <h2>Entidades <span>Notación chen</span></h2>
+    <p>
+        Entidades -> son las clases que se utilizan para representar datos
+        atibutos ->
+            multivaluados -> tiene màs de un valor,
+            compuest _> que se compone de màs atributos
+            key -> es un atributo que identifica a una entidad
+            foreign key -> es un atributo que identifica a una entidad que está en otra tabla
+    </p>
+    <h2>Relaciones</h2>
+    <p>
+        Cardinalidad: 1 a 1 : una entidad tiene una entidad 1:1
+    </p>
+    <img src="./assets/images/one_to_one.png" alt="">
+    <p>
+        cardinalidad de 0 a 1 : una entidad puede tener 0 o 1 entidad(uno a uno opcional)
+    </p>
+    <img src="./assets/images/zero_to_one.png" alt="">
+    <p>
+        cardinalidad de 1 a N: una entidad puede tener 1 o N entidades(uno a muchos opcional)
+    </p>
+    <img src="./assets/images/one_to_many.png" alt="">
+    <p>
+        cardinalidad de 0 a N: una entidad puede tener 0 o N entidades
+    </p>
+    <img src="./assets/images/one_to_many.png" alt="">
+    <p>
+        cardinalidad de N a N: una entidad puede tener N entidades
+    </p>
+    <img src="./assets/images/many_to_many.png" alt="">
+    <h2>Tipo de datos</h2>
+    <img src="./assets//images/kind_of_data.png" alt="">
+    <h2>Restricciones</h2>
+    <img src="./assets//images/constraints.png" alt="">
+    <h1>Normalización</h1>
+    <p>Perteneen a las 12 reglas de cod, normalizar la base de datos quiere decir separa los componenetes de la base de dato 
+        acorde a las reglas de coud
+    </p>
+    <p>sin normalizar
+        <img src="./assets/images/without_normalization.png" alt="">
+    </p>
+    <p>Promera Forma normal: atributoa atemoicos no se puede tener campos repetidos</p>
+    <img src="./assets/images/1f_normal.png" alt="">
+    <p>Segunda FOrma Normal: estar en la 1er forma normal y el campo de la tabla debe tener una clave ùnica</p>
+    <img src="./assets/images/2f_normal.png" alt="">
+    <p>CUmplir 1fn y sengunda fn y qyue los campos que NO son clave NO deben tener dependencias</p>
+    <img src="./assets/images/3f_normal.png" alt="">
+    <p>Cuarta forma normal cumple normas anteriores y que los campo multivaluados se identifican por una clave única</p>
+    <img src="./assets/images/4f_normal.png" alt="">
+    <p><span>Consideracion</span>Cuando la relaci+on de uno a mucho la clave foranea(foreing key) va en muchos</p>
+    <h2>RDB</h2>
+    <p>Relational Database Mangment System: Es un programa que se encarga de cumplir las reglas de coud y manejorar las
+        bases de datos relacionales, ejemplos: MySQL, PostgreSQL, SQLite, SQL Server, Oracle, etc.
+    </p>
+    <h2>SQL</h2>
+    <p>
+        <ul>
+            <li>Tiene como objetivo de ser el standar de manejo de base de datos, para consultas</li>
+            <li>Structured Query Language</li>
+            <li>NOSQL -> NoT oNLY Structure Query Languaje</li>
+        </ul>
+    </p>
+    <img src="./assets//images/sql_commands.png" alt="">
+    <h2>DDL(Data definition language</h2>
+    <p>
+        <ul>
+            <li>Create: crear</li>
+            <p>database: schemas, repositorio de datos; table: entidades; view: proyección de los datos en una vista</p>
+            <p>CREATE DATABASE test_db; -> crea una base de datos llamada test_db</p>
+            <p>USE test_db; -> seleciona la base de datos test_db y lo siguientes queries serán aplicadas sobre esa base de datos</p>
+            <p>CREATE TABLE test_db.people (
+                person_id int not null auto_increment,
+                last_name varchar(255),
+                first_name varchar(255),
+                address varchar(255),
+                city varchar(255),
+            ); -> crea una tabla con los campos person_id, last_name, first_name, address, city</p>
+            </p>
+            <p>
+                CREATE_VIEW v_brasil_customers AS SELECT customer_name, contact_name FROM customers WHERE country = "Brasil"; 
+                -> crea una vista llamada v_brasil_customers que contiene los campos customer_name y contact_name de la tabla customers donde country es igual a Brasil
+            </p>
+            <li>Alter: modificar</li>
+
+            <p>ALTER TABLE people ADD date_of_birth date; -> agrega un campo date_of_birth a la tabla people</p>
+            <p>ALTER TABLE people ALTER COLUMN date_of_birth year; -> agrera un campo date_of_birth a la tabla people de tipo año </p>
+            <p>ALTER TABLE people DROP COLUMN date_of_birth; -> elimina el campo date_of_birth de la tabla people</p>
+
+            <li>Drop: eliminar</li>
+            <p><span>Se debe de usar USE "NOMBRE_DB"</span></p>    
+            <p>DROP TABLE -> Elimina la table people</p>
+            <p>DROP DATABASE -> Elimina la base de datos test_db</p>
+        </ul>
+    </p>
+    <h1>DML Data manipulation languaje</h1>
+    <ul>
+        <li>Insert</li>
+        <p>Inserta un unevo registro a la base de datos</p>
+        <p>INSERT INTO people (last_name, first_name, address, city) VALUES ('Henandez', 'Laura', 'Calle 12', 'Oxapampa'</p>
+        <p>Consideraciones: mantener el orden de las cabeceras al insertar los values</p>
+        <li>Update</li>
+        <p>Actualizar datos que ya se tienen</p>
+        <p>UPDATE people SET last_name = 'Chavez', city= 'La Merced' WHERE person_id = 1;</p>
+        <p>UPDATE people SET first_name= 'Cesar' WHERE city = 'Oxapampa'; </p>
+        <p>UPDATE people SET city = 'Villa Rica'; (peligro)</p>
+        <li>Delete</li>
+        <p>Eliminar datos que ya se tienen en una tabla</p>
+        <p>WHERE person_id = 1;</p>
+        <p>DELETE FROM people;</p>
+        <li>Select</li>
+        <p>Seleccionar datos de una tabla</p>
+        <p>SELECT first_name, last_name FROM people;</p>
+    </ul>
+    
+
+
+
+
+    
+</body>
+</html>
+
